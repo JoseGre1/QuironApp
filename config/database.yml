@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: hackippides
+  password: hackippides1234
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: hackthon_app_development
+
+test:
+  <<: *default
+  database: hackthon_app_test
+
+production:
+  <<: *default
+  database: hackthon_app_production
