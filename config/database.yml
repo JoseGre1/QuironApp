@@ -1,7 +1,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
   username: hackippides
   password: hackippides1234
   host: localhost
@@ -9,12 +8,17 @@ default: &default
 
 development:
   <<: *default
+  pool: 5
   database: hackthon_app_development
 
 test:
   <<: *default
+  pool: 5
   database: hackthon_app_test
 
 production:
   <<: *default
-  database: hackthon_app_production
+  database: quiron_production
+  username: quiron
+  password: <%= ENV['QUIRON_DATABASE_PASSWORD'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
