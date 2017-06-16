@@ -15,10 +15,10 @@ class InstitutionsController < ApplicationController
     def show
       if params[:id]
         #Specefic Institution
-        @institutions = Institution.find_by(id: params[:id])
+        @institutions = Institution.select(Institution.column_names - ["password_digest"]).find_by(id: params[:id].to_i)
       else
         #All institutions
-        @institutions = Institution.all
+        @institutions = Institution.all.select(Institution.column_names - ["password_digest"])
       end
       render json: { institutions: @institutions }
     end

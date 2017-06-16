@@ -1,5 +1,5 @@
 class Student < ApplicationRecord
-  belongs_to :Institution
+  belongs_to :institution
   before_save { email.downcase! }
   before_validation :default_values
 
