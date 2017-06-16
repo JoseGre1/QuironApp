@@ -10,18 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615220323) do
+ActiveRecord::Schema.define(version: 20170616050958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
+  create_table "institutions", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.string   "city"
+    t.integer  "superuser_id"
+    t.index ["email"], name: "index_institutions_on_email", unique: true, using: :btree
+    t.index ["superuser_id"], name: "index_institutions_on_superuser_id", using: :btree
   end
 
+  create_table "students", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "age"
+    t.float    "icfes_score"
+    t.float    "extra_score"
+    t.float    "school_score"
+    t.string   "gender"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "institution_id"
+    t.string   "personal_id"
+    t.string   "personal_id_type"
+    t.string   "global_score"
+    t.index ["institution_id"], name: "index_students_on_institution_id", using: :btree
+  end
+
+  create_table "superusers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+  end
+
+  add_foreign_key "institutions", "superusers"
+  add_foreign_key "students", "institutions"
 end

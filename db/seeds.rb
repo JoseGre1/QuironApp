@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Superuser.destroy_all
+Superuser.create(name: "minedu", email: "ministerio@minedu.co", password: "ministerio1234", password_confirmation: "ministerio1234")
