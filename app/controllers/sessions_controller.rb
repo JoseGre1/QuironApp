@@ -9,11 +9,9 @@ class SessionsController < ApplicationController
     end
     if user && user.authenticate(params[:session][:password])
       log_in user
-      debugger
       user.password_digest = ""
       render json: { user: user , success: true }
     else
-      debugger
       render json: { user: "", success: false }
     end
   end
